@@ -1,0 +1,21 @@
+version: "3.2"
+services:
+  mssql:
+    container_name: mssql_database
+    image: mcr.microsoft.com/mssql/server
+    user: root
+    ports:
+      - ${SQL_PORT}:1433
+    environment:
+      SA_PASSWORD: ${SQL_PASSWORD}
+      ACCEPT_EULA: "Y"
+    volumes:
+      - './data:/var/opt/mssql/data'
+    networks:
+      - database_network
+
+networks:
+  database_network:
+    external:
+      name: ${DATABASE_NETWORK}
+
